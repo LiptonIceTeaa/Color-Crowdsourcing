@@ -1,0 +1,155 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@drawable/overlay_menu_bckgrd"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    android:paddingLeft="30dp"
+    android:paddingRight="30dp">
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txtSettings"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#ffce1f"
+        android:paddingBottom="16dp"
+        android:layout_gravity="center"/>
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/soundSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:drawableRight="@drawable/volume_up_fill0_wght400_grad0_opsz24"
+        android:drawablePadding="10dp"
+        android:drawableTint="#ffce1f"
+        android:paddingTop="1dp"
+        android:text="@string/txtSound"
+        android:textColor="#ffce1f"
+        android:textStyle="bold"
+        app:thumbTint="#ffce1f"
+        android:checked="true"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CCCCCC" /> <!-- Line color -->
+
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/soundSwitch2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:drawableRight="@drawable/vibration_fill0_wght400_grad0_opsz24"
+        android:drawablePadding="10dp"
+        android:drawableTint="#ffce1f"
+        android:paddingTop="10dp"
+        android:text="@string/txtVibration"
+        android:textColor="#ffce1f"
+        android:textStyle="bold"
+        app:thumbTint="#ffce1f"
+        android:checked="true"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CCCCCC" /> <!-- Line color -->
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:textColor="#ffce1f"
+            android:textStyle="bold"
+            android:drawableRight="@drawable/globe1"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:text="@string/txtLanguage"
+            />
+
+        <Space
+            android:layout_width="10dp"
+            android:layout_height="wrap_content">
+
+        </Space>
+
+        <Spinner
+            android:id="@+id/languageSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#ffce1f"
+            android:paddingRight="20dp"
+            android:paddingTop="3dp"
+            android:paddingLeft="10dp"
+            android:paddingBottom="3dp"
+            android:entries="@array/language_option"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CCCCCC" /> <!-- Line color -->
+
+
+    <Button
+        android:id="@+id/leaderboardButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#ffce1f"
+        android:drawableLeft="@drawable/sort"
+        android:drawableTint="#5d8481"
+        android:text="@string/txtViewLeaderBoard"
+        android:layout_gravity="center"
+        android:textColor="#5d8481"
+        android:textSize="12sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+
+
+
+    <Button
+        android:id="@+id/contactButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txtRateUs"
+        android:backgroundTint="#ffce1f"
+        android:textColor="#5d8481"
+        android:textSize="12sp"
+        android:drawableLeft="@drawable/contact_support_fill0_wght400_grad0_opsz24"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+
+    <Button
+        android:id="@+id/logoutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txtSignOut"
+        android:textSize="12sp"
+        android:textColor="@color/white"
+        android:backgroundTint="#8B0000"
+        android:drawableLeft="@drawable/logout_fill0_wght400_grad0_opsz24"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        />
+
+</LinearLayout>

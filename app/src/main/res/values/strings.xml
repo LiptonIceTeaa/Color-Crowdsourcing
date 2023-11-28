@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name" translatable="false">Color-Crowdsourcing</string>
+    <string name="txtSignIn">Sign In</string>
+    <string name="txtBttnSignIn">Sign In</string>
+    <string name="bttnSignUp">Sign Up</string>
+    <string name="txtName">Name:</string>
+    <string name="txtDOB">Birth Date</string>
+    <string name="inputNameHint">Enter name ..</string>
+    <string name="inputDOBHint">Choose date</string>
+    <string name="txtGender">Gender:</string>
+    <string name="radioBttnMale">Male</string>
+    <string name="radioBttnFemale">Female</string>
+    <string name="txtCountry">Country of origin</string>
+    <string name="inputCountryHint">Choose country</string>
+    <string name="bttnCreateAccount">Create</string>
+    <string name="bttnSignInInstead">Have an account ? Log in</string>
+    <string name="txtPassword">Password</string>
+    <string name="txtCreateAccount">Create Account</string>
+    <string name="txtLastName">Family name</string>
+    <string name="inputPassConfHint">Confirm password</string>
+    <string name="inputLastNameHint">e.g,.Ali [Ahmed] ..</string>
+    <string name="txtInputEmail">Email</string>
+    <string name="inputEmailHint">Enter email ...</string>
+    <string name="txtNewUserCreateAccount">New user? Create account</string>
+    <string name="txtTermsPrefix">I agree to\u0020 </string>
+    <string name="txtTerms">Terms and Conditions</string>
+    <string name="terms_and_conditions">"Effective Date: 10/31/2023\n\nWelcome to Color-Crowdsourcing! These Terms and Conditions of Use (\"Terms\") constitute a legal agreement between you and Color-Crowdsourcing (\"we,\" \"us,\" or \"our\"), governing your use of our mobile application (\"App\"). By accessing or using our App, you agree to comply with these Terms. If you do not agree with these Terms, please do not use the App.\n\n1. App Description\nColor-Crowdsourcing is a mobile application designed to collect and build a database of color names in the Arabic language through an interactive and user friendly application.\n\n2. User Registration\nIn order to access certain features of the App, you may be required to register for an account. You agree to provide accurate, current, and complete information during the registration process and to update such information to keep it accurate, current, and complete.\n\n3. Permissions Required\nThe App requires the following permissions:\nInternet Access: The App requires internet access to send and receive data from our servers.\nStorage Access: The App requires access to your device's storage to store and retrieve data.\n\n4. Data Collection and Usage\nWe collect and store the following information:\n- Personal Information: Name, Email, Country, Date of Birth (DOB), Gender.\n- Usage Data: App usage patterns, preferences, and interactions.\nWe use this information to improve our services and personalize your experience.\n\n5. Account Security\nYou are responsible for maintaining the confidentiality of your account credentials. You agree to notify us immediately of any unauthorized use of your account or any other breach of security.\n\n6. Termination\nWe reserve the right to terminate or suspend your account and access to the App, without prior notice, for any reason, including a breach of these Terms.\n\n7. Changes to Terms\nWe may update these Terms from time to time. You are responsible for reviewing these Terms to stay informed of updates. Your continued use of the App after the effective date of any modifications indicates your acceptance of the modified Terms.\n\n8. Limitation of Liability\nIn no event shall Color-Crowdsourcing be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, arising from your use of the App.\n\n9. Governing Law\nThese Terms are governed by and construed in accordance with the laws of Saudi Arabia.\n\n10. Contact Information\nFor any questions about these Terms, please contact us at:\nEmail: colorcrowdsourcing@gmail.com  "</string>
+    <string name="txtSettings">Settings</string>
+
+    <string-array name="language_option">
+        <item>English</item>
+        <item>Arabic</item>
+    </string-array>
+    <string name="txtViewLeaderBoard">View leaderboard</string>
+    <string name="txtRateUs">Rate us</string>
+    <string name="txtSignOut">Log out</string>
+    <string name="txtSound">Sound</string>
+    <string name="txtVibration">Vibration</string>
+    <string name="txtLanguage">Language</string>
+    <string name="passwordRules">Minimum password conditions:\n- 8 characters\t- 1 special character\n- 1 capital letter\t- 1 number</string>
+    <string name="txtWrongCredentials">Incorrect email or password !</string>
+    <string name="txtColors">Colors</string>
+    <string name="txtMission">Complete your mission to identify the largest possible number of Arabic color names !</string>
+    <string name="txtBtnContinue">Continue</string>
+    <string name="txtToolTipPoints">Points earned per color entry!</string>
+    <string name="txtUsername">Enter Username</string>
+    <string name="txtChooseUsername">Username selection</string>
+    <string name="txtContinue">Continue</string>
+    <string name="txtChooseColorName">Enter the color name shown above:</string>
+    <string name="txtSkip">Skip this color</string>
+    <string name="txtSubmitColor">Next</string>
+    <string name="txtColorLangWarning">Only Arabic input is accepted for color names.</string>
+
+</resources>

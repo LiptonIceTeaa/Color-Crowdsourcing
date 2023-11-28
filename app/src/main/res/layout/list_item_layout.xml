@@ -1,0 +1,75 @@
+<!-- list_item_layout.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainRow"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/list_view_item">
+
+<LinearLayout
+    android:id="@+id/linearLayoutRow"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@android:color/transparent"
+    >
+
+    <TextView
+        android:id="@+id/textViewNumber"
+        android:layout_width="32dp"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#5d8481"
+        /> <!-- Sample numbering -->
+
+    <ImageView
+        android:id="@+id/imageTrophyCup"
+        android:layout_width="45dp"
+        android:layout_height="46dp"
+        android:layout_gravity="center_vertical"
+        android:scaleType="centerCrop"
+        android:src="@drawable/trophy_fill0_wght400_grad0_opsz24"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/imageViewCountry"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center_vertical"
+       />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:layout_gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/textViewName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="#5d8481"
+            /> <!-- Sample name text -->
+
+        <TextView
+            android:id="@+id/textViewPoints"
+            android:layout_width="wrap_content"
+            android:textSize="10sp"
+            android:textStyle="italic"
+            android:layout_height="wrap_content"
+            android:textColor="#7FA39E"
+            /> <!-- Sample points text -->
+
+    </LinearLayout>
+
+</LinearLayout>
+
+</LinearLayout>

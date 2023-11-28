@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.ColorCrowdsourcing" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="colorOnSurface">@color/color_primary</item>
+        <item name="colorSecondary">@color/color_secondary</item>
+
+
+        <item name="radioButtonStyle">@style/Widget.App.RadioButton</item>
+
+
+    </style>
+
+
+    <style name="Widget.App.RadioButton" parent="Widget.MaterialComponents.CompoundButton.RadioButton">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.RadioButton</item>
+        <item name="buttonTint">#5A5A5A</item>
+        <item name="android:color">@color/white</item>
+    </style>
+
+    <style name="ThemeOverlay.App.RadioButton" parent="">
+        <item name="colorOnSurface">#ffce1f</item>
+        <item name="colorSecondary">#ffce1f</item>
+    </style>
+
+
+
+</resources>
