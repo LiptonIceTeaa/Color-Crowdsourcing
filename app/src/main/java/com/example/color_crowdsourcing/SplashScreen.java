@@ -2,13 +2,11 @@ package com.example.color_crowdsourcing;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.transition.Fade;
-import android.util.Pair;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -78,30 +76,13 @@ public class SplashScreen extends AppCompatActivity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-
                         // We check first if a user is signed in.
                         // We do this by checking the shared preferences
                         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                         String userSession = preferences.getString("userEmail", "none");
 
-                        if(!userSession.equals("none"))
-                            intent = new Intent(SplashScreen.this, displayTasks.class);
-                        else
-                            intent = new Intent(SplashScreen.this, signIn.class);
-
-
-
-                        //Intent intent = new Intent(SplashScreen.this, signIn.class);
-                        View sharedElement = findViewById(R.id.logoView);
-                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SplashScreen.this,
-                                Pair.create(sharedElement,"shared_logo_transition"));
-                        startActivity(intent, options.toBundle());
-                        //finish();
-
-                        //finishAfterTransition();
-
-                        //finishAfterTransition();
-
+                        intent = new Intent(SplashScreen.this, introductoryPage.class);
+                        startActivity(intent);
                     }
                 }, 500); // Delay in milliseconds (500 milliseconds = 0.5 seconds)
             }
@@ -111,17 +92,5 @@ public class SplashScreen extends AppCompatActivity {
                 // Animation repeat
             }
         });
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

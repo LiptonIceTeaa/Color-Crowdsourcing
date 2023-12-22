@@ -32,7 +32,7 @@
         <item>Arabic</item>
     </string-array>
     <string name="txtViewLeaderBoard">View leaderboard</string>
-    <string name="txtRateUs">Rate us</string>
+    <string name="txtRateUs">Contact us</string>
     <string name="txtSignOut">Log out</string>
     <string name="txtSound">Sound</string>
     <string name="txtVibration">Vibration</string>
@@ -50,5 +50,66 @@
     <string name="txtSkip">Skip this color</string>
     <string name="txtSubmitColor">Next</string>
     <string name="txtColorLangWarning">Only Arabic input is accepted for color names.</string>
+    <string name="txtOtherInformation">Other Information</string>
+    <string name="txtPersonalInformation">Personal Information</string>
+    <string name="txtActiveSince">----</string>
+    <string name="txtViewProfile">View profile</string>
+    <string name="txtLeaderboard">Leaderboard</string>
+    <string name="txtMyCircle">My circle</string>
+    <string name="txtUsernameHolder">Username</string>
+    <string name="txtEmailHolder">Email</string>
+    <string name="txtDOBHolder">Date of birth</string>
+    <string name="txtGenderHolder">Gender</string>
+    <string name="txtAppVersionHolder">App version</string>
+    <string name="txtDeleteAccount">Delete account</string>
+    <string name="txtLogoutConfirmation">Are you sure you want to log out?</string>
+    <string name="txtGoToDashboard">Go to dashboard</string>
+    <string name="txtPorjectDesc">The Color-Crowdsourcing project\'s mission is to add to the realm of data visualization and text-to-speech applications in the Arabic language by creating a comprehensive Arabic corpus of color labels</string>
+    <string name="txtDeleteAccountConfirmation">Are you sure you want to delete your account ?</string>
+    <string name="txtPoints">Points:</string>
+    <string name="txtTotalGamePoints">TOTAL GAME POINTS</string>
+    <string name="txtExitApp">Exit application</string>
+    <string name="txtCancel">Cancel</string>
+    <string name="txtRemoveFriendConfirm">Are you sure you want to remove friend ?</string>
+    <string name="txtNo">No</string>
+    <string name="txtYes">Yes</string>
+    <string name="txtFriendsList">Friends list</string>
+    <string name="txtEmptyFriendList">Looks like you haven\'t added any friends yet.\nConnect with others to start building your social circle!</string>
+    <string name="txtAddFriendToViewPoints">Add user to view points !</string>
+    <string name="txtAcceptFriendToViewPoints">Accept friend to view points !</string>
+    <string name="txtFriendRequests">Friend requests</string>
+    <string name="txtSendUsAnEmail">Help us improve!\nSend us a ticket with your suggestions or concerns.</string>
+    <string name="txtArabic">Arabic</string>
+    <string name="txtEnglish">English</string>
+
+    <string-array name="ticket_options">
+        <item>@string/txtChooseACategory</item>
+        <item>@string/txtGeneralSupport</item>
+        <item>@string/txtFeedbackOrSugg</item>
+        <item>@string/txtAccountIssue</item>
+        <item>@string/txtBugReport</item>
+    </string-array>
+    <string name="txtGeneralSupport">General support</string>
+    <string name="txtFeedbackOrSugg">Feedback or suggestions</string>
+    <string name="txtAccountIssue">Account issue</string>
+    <string name="txtBugReport">Bug report</string>
+    <string name="txtChooseACategory">Choose a category ...</string>
+    <string name="txtSubmit">Submit</string>
+    <string name="toastInvalidEmail">Invalid email !</string>
+    <string name="toastEmailPasswordValid">Make sure password and email are valid !</string>
+    <string name="toastFillAllFields">Make sure to fill all fields</string>
+    <string name="toastFillSignInFields">Please make sure all fields are completed</string>
+    <string name="toastFillUsername">Username can\'t be left empty</string>
+    <string name="toastUsernameLength">Username can\'t be less than 4 letters</string>
+    <string name="toastUsernameExists">Username already exists\\nPlease select another one.</string>
+    <string name="toastUserRegistered">User registered</string>
+    <string name="toastEmailAlreadyExists">User with this email already exists</string>
+    <string name="toastFriendAdded">Friend added</string>
+    <string name="toastFriendRequestSent">Friend request sent</string>
+    <string name="toastFriendRequestAlreadySent">Friend request already sent !</string>
+    <string name="toastUserIsAFriend">User is already a friend !</string>
+    <string name="toastTicketSent">Ticket sent</string>
+    <string name="toastUserDeleted">User deleted successfully</string>
+
 
 </resources>

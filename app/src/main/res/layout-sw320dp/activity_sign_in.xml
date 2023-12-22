@@ -2,12 +2,28 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/consLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:layoutDirection="ltr"
     tools:context=".signIn">
 
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButtonBack"
+        android:layout_width="52dp"
+        android:layout_height="55dp"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        app:backgroundTint="#5D8380"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.107"
+        app:srcCompat="@drawable/arrow_back_fill0_wght400_grad0_opsz24" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
@@ -57,39 +73,6 @@
         app:layout_constraintTop_toBottomOf="@+id/btnSignIn"
         app:layout_constraintVertical_bias="0.0" />
 
-    <ImageView
-        android:id="@+id/logoView"
-        android:layout_width="230dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="12dp"
-        android:cropToPadding="true"
-        android:scaleType="fitXY"
-        android:transitionName="shared_logo_transition"
-        app:layout_constraintBottom_toTopOf="@+id/formTitle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.989"
-        app:srcCompat="@drawable/ccslogo"
-        app:tint="#ffce1f" />
-
-    <TextView
-        android:id="@+id/formTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/txtSignIn"
-        android:textColor="#ffce1f"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:transitionName="shared_title_transition"
-        app:layout_constraintBottom_toTopOf="@+id/inputForm"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.955" />
-
     <LinearLayout
         android:id="@+id/inputForm"
         android:layout_width="347dp"
@@ -102,10 +85,9 @@
         android:weightSum="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.366">
+        app:layout_constraintVertical_bias="0.415">
 
 
         <LinearLayout
@@ -237,11 +219,43 @@
             android:text="@string/txtWrongCredentials"
             android:textColor="#8B0000"
             android:textSize="11sp"
-            android:visibility="gone"
-            />
+            android:visibility="gone" />
 
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/logoView"
+        android:layout_width="230dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="12dp"
+        android:cropToPadding="true"
+        android:scaleType="fitXY"
+        android:transitionName="shared_logo_transition"
+        app:layout_constraintBottom_toTopOf="@+id/formTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.469"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.995"
+        app:srcCompat="@drawable/ccslogo"
+        app:tint="#ffce1f" />
+
+    <TextView
+        android:id="@+id/formTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txtSignIn"
+        android:textColor="#ffce1f"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:transitionName="shared_title_transition"
+        app:layout_constraintBottom_toTopOf="@+id/inputForm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.959" />
 
     <ProgressBar
         android:id="@+id/progressBar"

@@ -110,22 +110,6 @@
 
 
     <Button
-        android:id="@+id/leaderboardButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#ffce1f"
-        android:drawableLeft="@drawable/sort"
-        android:drawableTint="#5d8481"
-        android:text="@string/txtViewLeaderBoard"
-        android:layout_gravity="center"
-        android:textColor="#5d8481"
-        android:textSize="12sp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"/>
-
-
-
-    <Button
         android:id="@+id/contactButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

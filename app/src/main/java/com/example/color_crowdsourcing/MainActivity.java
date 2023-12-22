@@ -2,23 +2,16 @@ package com.example.color_crowdsourcing;
 
 import static android.os.Build.VERSION.SDK_INT;
 
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Dialog;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.FeatureInfo;
-import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -26,12 +19,13 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.LocaleList;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.preference.PreferenceManager;
-
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.util.DisplayMetrics;
@@ -40,7 +34,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -50,6 +43,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -57,19 +52,12 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.Firebase;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -78,11 +66,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
-import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -111,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
     private RadioGroup genderRadioGroup;// Radio group of {male,female} radio buttons
     private RadioButton radioButtonMale;
     private RadioButton radioButtonFemale;
+    private ProgressBar progressBar;
 
     /**
      * Checkbox, button
@@ -118,7 +103,8 @@ public class MainActivity extends AppCompatActivity {
     CheckBox termsCheckBox;// Checkbox used to confirm user agreement on terms and conditions
     Button createBttn;// Button used to submit " Register user" form
     FloatingActionButton setting;
-    ProgressBar progressBar;
+
+    private FloatingActionButton backBttn;
 
     /**
      * Firebase data
@@ -141,6 +127,8 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setEnterTransition(null);
         setDefaultLanguage();
 
+        setLayoutHeight();
+
         /** Initialising views **/
         logInInstead = (TextView) findViewById(R.id.txtLoginInInstead);
         passConditions = (TextView) findViewById(R.id.textViewPassConditions);
@@ -159,10 +147,19 @@ public class MainActivity extends AppCompatActivity {
         termsCheckBox = (CheckBox) findViewById(R.id.termsCheckBox);
         createBttn = (Button) findViewById(R.id.createButton);
         setting = (FloatingActionButton) findViewById(R.id.floatingActionButton);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar3);
+        backBttn = (FloatingActionButton)findViewById(R.id.floatingActionButtonBack);
 
         mAuth = FirebaseAuth.getInstance();
         /** Finished initialising views **/
+
+
+        backBttn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
 
         /** setting style for txtLoginInInstead text view **/
@@ -304,7 +301,7 @@ public class MainActivity extends AppCompatActivity {
                     Boolean emailValid = isValidEmail(userEmail);
 
                     if (emailValid.toString().equals("false") && !userEmail.isEmpty()) {
-                        Toast.makeText(MainActivity.this, "Invalid email !", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, getString(R.string.toastInvalidEmail), Toast.LENGTH_SHORT).show();
                         if (currentLocale.equals("en"))
                             emailField.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.email_invalid, 0);
                         else
@@ -333,6 +330,8 @@ public class MainActivity extends AppCompatActivity {
         createBttn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                createBttn.setVisibility(View.GONE);
+                progressBar.setVisibility(View.VISIBLE);
                 String name, email, country, dob, password, gender;
                 int selectedRadioButtonID;
                 name = nameField.getText().toString().trim();
@@ -379,84 +378,20 @@ public class MainActivity extends AppCompatActivity {
                             intent.putExtra("password", password);
                             startActivity(intent);
                             overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_bottom);
+                            createBttn.setVisibility(View.VISIBLE);
+                            progressBar.setVisibility(View.GONE);
                         }
                     });
 
-
-                    // Make call to register user into Firebase Authentication DB
-
-                    /**
-                     mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {// Register of email and password is a success
-
-                    // Up till now we just added the user email and password in the authentication DB
-                    // Now we add the <First name, email, country, DOB, gender
-                    Map<String, Object> user = new HashMap<>();
-                    user.put("name", name);
-                    user.put("email", email);
-                    user.put("country", country);
-                    user.put("DOB", dob);
-                    user.put("gender", gender);
-                    user.put("points", 0);
-
-                    // Get number of users in the DB, to set the ID of new user
-
-                    // Reference to the collection to count documents from
-                    CollectionReference collectionRef = db.collection("users");
-                    //  collectionRef.get();
-
-                    // Query to get the count of documents in the collection to use in setting the ID
-                    collectionRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                    // Get the count of documents in the collection
-                    int count = queryDocumentSnapshots.size();
-
-                    // Use the count as the title for the next document
-                    String nextDocumentTitle = (String.valueOf(count + 1));
-
-                    // Create a new user data map
-                    Map<String, Object> user = new HashMap<>();
-                    user.put("name", name);
-                    user.put("email", email);
-                    user.put("country", country);
-                    user.put("DOB", dob);
-                    user.put("gender", gender);
-                    user.put("points", 0);
-
-
-                    // Toast.makeText(MainActivity.this, "User registered :)", Toast.LENGTH_SHORT).show();
-
-                    // When user is done registering, redirect to username selection page
-                    // No data is passed here
-                    Intent intent = new Intent(MainActivity.this, UserNameActivity.class);
-                    intent.putExtra("userMap", (Serializable) user);
-                    intent.putExtra("nextDocumentTitle",nextDocumentTitle);
-                    startActivity(intent);
-                    // finish();
-                    }
-                    });
-
-                    } else { // If sign in fails, display a message to the user.
-                    //Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                    if (task.getException() instanceof FirebaseAuthUserCollisionException) {// If an email already exists in our user credentials DB
-                    Toast.makeText(MainActivity.this, "User with this email already exists.", Toast.LENGTH_SHORT).show();
-                    } else { // Some other error occurred
-                    Toast.makeText(MainActivity.this, "User failed to register :)", Toast.LENGTH_SHORT).show();
-                    }
-                    }
-                    progressBar.setVisibility(View.GONE); // Remove the progress bar
-                    createBttn.setVisibility((View.VISIBLE)); // Get back the create button
-                    logInInstead.setVisibility(View.VISIBLE); // Get back the "log in instead"
-                    }
-                    });
-                     **/
-
                 } else if ((!isValidPassword(password) || !isValidEmail(email)) && !name.isEmpty() && !email.isEmpty() && !country.isEmpty() && !dob.isEmpty() && !password.isEmpty()) { // Email or password fields are not valid
-                    Toast.makeText(MainActivity.this, "Make sure password and email are valid", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, getString(R.string.toastEmailPasswordValid), Toast.LENGTH_SHORT).show();
+                    createBttn.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
 
                 } else { // Not all fields are completed
-                    Toast.makeText(MainActivity.this, "Make sure to fill all fields", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, getString(R.string.toastFillAllFields), Toast.LENGTH_SHORT).show();
+                    createBttn.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
                 }
             }
         });
@@ -491,6 +426,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, signIn.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                 finish();
             }
         });
@@ -630,7 +566,7 @@ public class MainActivity extends AppCompatActivity {
         dialog.getWindow().setGravity(Gravity.CENTER); // Centered on screen
 
         // Initialize menu items
-        Button buttonOption1 = dialog.findViewById(R.id.leaderboardButton);
+      //  Button buttonOption1 = dialog.findViewById(R.id.leaderboardButton);
         Button buttonOption2 = dialog.findViewById(R.id.contactButton);
         Button buttonOption3 = dialog.findViewById(R.id.logoutButton);
         Spinner langSpinner = dialog.findViewById(R.id.languageSpinner);
@@ -644,16 +580,16 @@ public class MainActivity extends AppCompatActivity {
         langSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (userSelectedLanguage) {
-                    String selectedLanguage = parent.getItemAtPosition(position).toString();
-                    //Toast.makeText(MainActivity.this, selectedLanguage + " selected", Toast.LENGTH_SHORT).show();
-                    if (selectedLanguage.equals("English"))
-                        setLocale("en");
-                    else
-                        setLocale("ar");
 
-                }
-                userSelectedLanguage = true; // Set the flag to true after the first selection
+                String selectedLanguage = parent.getItemAtPosition(position).toString();
+                if(selectedLanguage.equals("English") && !currentLocale.equals("en"))
+                    setLocale("en");
+
+                else if(selectedLanguage.equals("Arabic") && !currentLocale.equals("ar"))
+                    setLocale("ar");
+
+               // }
+               // userSelectedLanguage = true; // Set the flag to true after the first selection
             }
 
             @Override
@@ -663,13 +599,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Set click listeners for menu items
-        buttonOption1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle option 1 click
-                dialog.dismiss(); // Dismiss the menu after click
-            }
-        });
+//        buttonOption1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Handle option 1 click
+//                dialog.dismiss(); // Dismiss the menu after click
+//            }
+//        });
 
         buttonOption2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -749,6 +685,47 @@ public class MainActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         finish();
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        //overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom);
+        overridePendingTransition(R.anim.nothing_slide, R.anim.slide_out);
+    }
+
+
+    public void setLayoutHeight(){
+
+        ImageView logoView = findViewById(R.id.logoView);
+       // logoView.setVisibility(View.INVISIBLE);
+
+        ConstraintLayout constraintLayout = findViewById(R.id.rootLayout); // Replace with your actual ID
+
+// Get the display metrics
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+// Calculate the percentage of screen width and height you want (e.g., 80% and 40%)
+        float percentageOfScreenWidth = 0.91f;
+        float percentageOfScreenHeight = 0.46f;
+
+// Calculate the desired width and height in pixels
+        int desiredWidthInPixels = (int) (displayMetrics.widthPixels * percentageOfScreenWidth);
+        int desiredHeightInPixels = (int) (displayMetrics.heightPixels * percentageOfScreenHeight);
+
+// Find the views
+        LinearLayout inputForm = findViewById(R.id.inputForm); // Replace with your actual ID
+        TextView formTitle = findViewById(R.id.formTitle); // Replace with your actual ID
+        Button createButton = findViewById(R.id.createButton); // Replace with your actual ID
+
+// Set layout parameters for inputForm
+        ConstraintLayout.LayoutParams paramsInputForm = (ConstraintLayout.LayoutParams) inputForm.getLayoutParams();
+        paramsInputForm.width = desiredWidthInPixels;
+        paramsInputForm.height = desiredHeightInPixels;
+
+        inputForm.setLayoutParams(paramsInputForm);
+
     }
 
 

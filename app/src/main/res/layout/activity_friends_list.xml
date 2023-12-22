@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/consLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_upper"
+    tools:context=".friendsList">
+
+    <ImageView
+        android:id="@+id/logoView3"
+        android:layout_width="198dp"
+        android:layout_height="51dp"
+        android:scaleType="fitXY"
+        android:transitionName="shared_logo_transition"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.22"
+        app:srcCompat="@drawable/ccslogo" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButtonSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:baselineAlignBottom="false"
+        android:clickable="true"
+        app:backgroundTint="#5D8380"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.019"
+        app:srcCompat="@drawable/settings" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButtonBack"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        app:backgroundTint="#5D8380"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/floatingActionButtonSettings"
+        app:layout_constraintVertical_bias="0.018"
+        app:srcCompat="@drawable/arrow_back_fill0_wght400_grad0_opsz24" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButtonFriendRequests"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        app:backgroundTint="#5D8380"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.68"
+        app:layout_constraintStart_toEndOf="@+id/logoView3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.927"
+        app:srcCompat="@drawable/notifications" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout8"
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+        android:background="@drawable/friends_list_lower"
+        android:orientation="vertical"
+        android:paddingTop="20dp"
+        android:weightSum="10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="25dp"
+            android:weightSum="4">
+
+            <EditText
+                android:id="@+id/editTextSearchFriend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:ems="10"
+                android:hint="Enter username ..."
+                android:inputType="text"
+                android:textColor="#517c79"
+                android:textColorHint="#517c79"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/textViewFriendsList"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:fontFamily="@font/nunito"
+                android:text="Friends list"
+                android:textColor="#517c79"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imageViewAddFriend"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                app:srcCompat="@drawable/person_add" />
+
+
+            <ImageView
+                android:id="@+id/imageViewCancelSearch"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="gone"
+                app:srcCompat="@drawable/close" />
+
+            <ImageView
+                android:id="@+id/imageViewSearch"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="gone"
+                app:srcCompat="@drawable/search" />
+
+
+        </LinearLayout>
+
+
+        <ListView
+            android:id="@+id/friendsListView"
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="8"
+            android:dividerHeight="0dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:scrollbars="vertical" />
+
+
+        <ListView
+            android:id="@+id/searchFriendsListView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="9"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:scrollbars="vertical"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textViewNoFriends"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="9"
+            android:gravity="center_vertical|center"
+            android:text="@string/txtEmptyFriendList"
+            android:textColor="#517c79 "
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textViewNoFriendsResults"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="9"
+            android:gravity="center_vertical|center"
+            android:text="No user found with this username !"
+            android:textColor="#517c79 "
+            android:visibility="gone" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

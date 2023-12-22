@@ -15,6 +15,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.LocaleList;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -36,11 +37,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.io.Serializable;
 import java.util.Locale;
 import java.util.Map;
 
@@ -51,9 +53,11 @@ public class UserNameActivity extends AppCompatActivity {
     private EditText usernameField;
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
-    FloatingActionButton setting;
+    private FloatingActionButton setting;
     private boolean userSelectedLanguage = false;
     private FloatingActionButton backBttn;
+    private boolean exists;
+
 
 
 
@@ -112,54 +116,93 @@ public class UserNameActivity extends AppCompatActivity {
         /** What happens on create button click **/
 
         bttnCreate.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                String username = usernameField.getText().toString().trim();
+
+
+                progressBar.setVisibility(View.VISIBLE);
+                bttnCreate.setVisibility((View.GONE));
+                String username = usernameField.getText().toString().trim().toLowerCase();
+
+
+
                 if(username.isEmpty()){
-                    Toast.makeText(UserNameActivity.this, "Please fill field !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserNameActivity.this, getString(R.string.toastFillUsername), Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
+                    bttnCreate.setVisibility((View.VISIBLE));
                 }else if (username.length() < 4){
-                    Toast.makeText(UserNameActivity.this, "Username can't be less than 4 letters !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserNameActivity.this, getString(R.string.toastUsernameLength), Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
+                    bttnCreate.setVisibility((View.VISIBLE));
                 }else{// Create user entry in database
 
-                    String password = userPassword;
-                    String email = userMap.get("email").toString();
 
-                    progressBar.setVisibility(View.VISIBLE);
-                    bttnCreate.setVisibility((View.GONE));
+                    // CHECK IF username exists or not in our database first
 
-                // First we create user credentials (email and password)
-                    mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
+                    CollectionReference usersRef = rootRef.collection("users");
+                    Query queryUsersByName = usersRef.whereEqualTo("username", username);
+
+                    queryUsersByName.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
-                                userMap.put("username",username);// add username to the usermap
-                                // Add the new user document with the dynamically generated title
-                                db.collection("users").document(nextDocumentTitle).set(userMap).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Toast.makeText(UserNameActivity.this, "User registered :)", Toast.LENGTH_SHORT).show();
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                               // DocumentSnapshot document = task.getResult().getDocuments().get(0);
+                                int size = task.getResult().size();
+                                //for (DocumentSnapshot document : task.getResult()) {
+                                    if (size > 0) {
+                                        Log.d("TAG", "name already exists");
+                                        Toast.makeText(UserNameActivity.this, getString(R.string.toastUsernameExists), Toast.LENGTH_SHORT).show();
+                                    } else { // Username doesnt exist in DB
 
-                                        // When user is done registering, redirect to sign in page
-                                        // No data is passed here
-                                        Intent intent = new Intent(UserNameActivity.this, signIn.class);
-                                        startActivity(intent);
-                                        finish();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(UserNameActivity.this, "Error occurred !", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+                                        String password = userPassword;
+                                        String email = userMap.get("email").toString();
+                                        // First we create user credentials (email and password)
+                                        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                                if (task.isSuccessful()) {
+                                                    userMap.put("username", username);// add username to the usermap
+                                                    userMap.put("colors_selected", FieldValue.arrayUnion());
+                                                    userMap.put("friends", FieldValue.arrayUnion());
+                                                    userMap.put("friendRequests", FieldValue.arrayUnion());
+                                                    // Add the new user document with the dynamically generated title
+                                                    db.collection("users").document(nextDocumentTitle).set(userMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            Toast.makeText(UserNameActivity.this, getString(R.string.toastUserRegistered), Toast.LENGTH_SHORT).show();
 
-                            }else{ // Couldnt create a user with these credentials
-                                if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                                    // If an email already exists in our user credentials DB)
-                                    Toast.makeText(UserNameActivity.this, "User with this email already exists.", Toast.LENGTH_SHORT).show();
-                                }else { // Some other error occurred
-                                    Toast.makeText(UserNameActivity.this, "User failed to register :)", Toast.LENGTH_SHORT).show();
-                                }
+                                                            // When user is done registering, redirect to sign in page
+                                                            // No data is passed here
+                                                            Intent intent = new Intent(UserNameActivity.this, signIn.class);
+                                                            startActivity(intent);
+                                                            finish();
+                                                        }
+                                                    }).addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            Toast.makeText(UserNameActivity.this, "Error occurred !", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+
+                                                } else { // Couldnt create a user with these credentials
+                                                    if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                                                        // If an email already exists in our user credentials DB)
+                                                        Toast.makeText(UserNameActivity.this,getString(R.string.toastEmailAlreadyExists), Toast.LENGTH_SHORT).show();
+                                                    } else { // Some other error occurred
+                                                        Toast.makeText(UserNameActivity.this, "User failed to register", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            }
+                                        });
+
+                                    }
+                                 //   }
+                            } else {
+                                Log.d("TAG", "Error getting documents: ", task.getException());
                             }
+
                             progressBar.setVisibility(View.GONE);// Remove the progress bar
                             bttnCreate.setVisibility(View.VISIBLE); // Get back the create button
 
@@ -167,9 +210,8 @@ public class UserNameActivity extends AppCompatActivity {
 
 
 
+
                     });
-                    //progressBar.setVisibility(View.GONE);// Remove the progress bar
-                   // bttnCreate.setVisibility(View.VISIBLE); // Get back the create button
 
                 }
             }
@@ -213,7 +255,7 @@ public class UserNameActivity extends AppCompatActivity {
         dialog.getWindow().setGravity(Gravity.CENTER); // Centered on screen
 
         // Initialize menu items
-        Button buttonOption1 = dialog.findViewById(R.id.leaderboardButton);
+       // Button buttonOption1 = dialog.findViewById(R.id.leaderboardButton);
         Button buttonOption2 = dialog.findViewById(R.id.contactButton);
         Button buttonOption3 = dialog.findViewById(R.id.logoutButton);
         Spinner langSpinner = dialog.findViewById(R.id.languageSpinner);
@@ -227,16 +269,16 @@ public class UserNameActivity extends AppCompatActivity {
         langSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (userSelectedLanguage) {
-                    String selectedLanguage = parent.getItemAtPosition(position).toString();
-                    //Toast.makeText(MainActivity.this, selectedLanguage + " selected", Toast.LENGTH_SHORT).show();
-                    if (selectedLanguage.equals("English"))
-                        setLocale("en");
-                    else
-                        setLocale("ar");
+               // if (userSelectedLanguage) {
+                String selectedLanguage = parent.getItemAtPosition(position).toString();
+                if(selectedLanguage.equals("English") && !currentLocale.equals("en"))
+                    setLocale("en");
 
-                }
-                userSelectedLanguage = true; // Set the flag to true after the first selection
+                else if(selectedLanguage.equals("Arabic") && !currentLocale.equals("ar"))
+                    setLocale("ar");
+
+               // }
+               // userSelectedLanguage = true; // Set the flag to true after the first selection
             }
 
             @Override
@@ -245,14 +287,14 @@ public class UserNameActivity extends AppCompatActivity {
             }
         });
 
-        // Set click listeners for menu items
-        buttonOption1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle option 1 click
-                dialog.dismiss(); // Dismiss the menu after click
-            }
-        });
+//        // Set click listeners for menu items
+//        buttonOption1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Handle option 1 click
+//                dialog.dismiss(); // Dismiss the menu after click
+//            }
+//        });
 
         buttonOption2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -347,11 +389,42 @@ public class UserNameActivity extends AppCompatActivity {
 
     // Restarts the app
     public void restartApp() {
-        Intent intent = new Intent(this, UserNameActivity.class);
+        Intent intent = new Intent(this, SplashScreen.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         finish();
         startActivity(intent);
     }
+
+//    public void isUsernameExists(String username) {
+//        FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
+//        CollectionReference usersRef = rootRef.collection("users");
+//        Query queryUsersByName = usersRef.whereEqualTo("username", username);
+//
+//
+//        queryUsersByName.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    for (DocumentSnapshot document : task.getResult()) {
+//                        if (document.exists()) {
+//                            Log.d("TAG", "name already exists");
+//                            exists = true;
+//                          Toast.makeText(UserNameActivity.this, "Username: "+username+", exists? True", Toast.LENGTH_SHORT).show();
+//
+//                        } else {
+//                            exists = false;
+//                           Toast.makeText(UserNameActivity.this, "Username: "+username+", exists? False", Toast.LENGTH_SHORT).show();
+//
+//                        }
+//                    }
+//                } else {
+//                    Log.d("TAG", "Error getting documents: ", task.getException());
+//                }
+//            }
+//        });
+//
+//
+//    }
 
 
 }

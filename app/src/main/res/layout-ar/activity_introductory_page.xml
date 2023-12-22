@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/consLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_upper_ar"
+    android:layoutDirection="rtl"
+    android:scaleY="1.01"
+    tools:context=".introductoryPage">
+
+    <ImageView
+        android:id="@+id/logoView2"
+        android:layout_width="230dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="12dp"
+        android:cropToPadding="true"
+        android:scaleType="fitXY"
+        android:transitionName="shared_logo_transition"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.243"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.222"
+        app:srcCompat="@drawable/ccslogo"
+        app:tint="#ffce1f" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButtonSwitchLang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:backgroundTint="#5D8380"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.014"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.019"
+        app:srcCompat="@drawable/translate_fill0_wght400_grad0_opsz24" />
+
+    <LinearLayout
+        android:id="@+id/elementsLayout"
+        android:layout_width="400dp"
+        android:layout_height="244dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.454"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logoView2"
+        app:layout_constraintVertical_bias="1">
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="Color-Crowdsource"
+            android:textColor="#ffce1f"
+            android:textDirection="ltr"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingBottom="10dp"
+            android:text="@string/txtPorjectDesc"
+            android:textColor="#d4a44d"
+            android:textDirection="rtl" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_vertical"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/buttonLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#ffce1f"
+                android:text="@string/txtSignIn"
+                android:textColor="#517c79"
+                android:visibility="gone"
+                app:cornerRadius="10dp" />
+
+            <Button
+                android:id="@+id/buttonSignUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#517c79"
+                android:text="@string/bttnSignUp"
+                android:textColor="#ffce1f"
+                android:visibility="gone"
+                app:cornerRadius="10dp"
+                app:strokeColor="#ffce1f"
+                app:strokeWidth="1.5dp" />
+
+
+            <Button
+                android:id="@+id/buttonGoToDashboard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#ffce1f"
+                android:text="@string/txtGoToDashboard"
+                android:textColor="#517c79"
+                android:visibility="gone"
+                app:cornerRadius="10dp" />
+
+            <Button
+                android:id="@+id/buttonLogout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#517c79"
+                android:text="@string/txtSignOut"
+                android:textColor="#ffce1f"
+                android:visibility="gone"
+                app:cornerRadius="10dp"
+                app:strokeColor="#ffce1f"
+                app:strokeWidth="1.5dp" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_upper_ar"
+    android:scrollbars="vertical"
+    android:scaleY="1.003"
+
+    tools:context=".userDetails">
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButtonBack"
+        android:layout_width="52dp"
+        android:layout_height="55dp"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        app:backgroundTint="#5D8380"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.019"
+        app:srcCompat="@drawable/arrow_back_fill0_wght400_grad0_opsz24" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.228">
+
+        <ImageView
+            android:id="@+id/imageViewUserFlag"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/image_bckg_border"
+            android:elevation="10dp"
+            android:scaleType="centerCrop"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/textViewNameHolder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text=""
+            android:textColor="#ffce1f"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewPointsHolder"
+            android:layout_width="109dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text=""
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutPersonalInfo"
+        android:layout_width="350dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="60dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout11"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/textViewPersonalInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="@string/txtPersonalInformation"
+            android:textColor="#ffce1f"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/edittextstyle"
+            android:orientation="vertical"
+            android:weightSum="8"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.550">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0px"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/txtUsernameHolder"
+                    android:textColor="#ffce1f"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textViewUsernameHolder"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text=""
+                    android:textColor="#ffce1f"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#517c79" /> <!-- Line color -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0px"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:id="@+id/textView143"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/txtEmailHolder"
+                    android:textColor="#ffce1f"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textViewEmailHolder"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text=""
+                    android:textColor="#ffce1f"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#517c79" /> <!-- Line color -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0px"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:id="@+id/textView14s3s"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/txtDOBHolder"
+                    android:textColor="#ffce1f"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textViewDOBholder"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text=""
+                    android:textColor="#ffce1f"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#517c79" /> <!-- Line color -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0px"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:id="@+id/textView14s3"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/txtGenderHolder"
+                    android:textColor="#ffce1f"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textViewGenderHolder"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text=""
+                    android:textColor="#ffce1f"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutOtherInformation"
+        android:layout_width="350dp"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutPersonalInfo"
+        app:layout_constraintVertical_bias="0.272">
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="@string/txtOtherInformation"
+            android:textColor="#ffce1f"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/edittextstyle"
+            android:orientation="vertical"
+            android:weightSum="8"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.507"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.930">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0px"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:id="@+id/textView14ss3s"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/txtAppVersionHolder"
+                    android:textColor="#ffce1f"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textView153ses"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text="1.0"
+                    android:textColor="#ffce1f"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#517c79" /> <!-- Line color -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0px"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:id="@+id/textView14ssa3s"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/txtRateUs"
+                    android:textColor="#ffce1f"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/imageViewContacuUs"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:textSize="12sp"
+                    app:srcCompat="@drawable/chevron_right" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#517c79" /> <!-- Line color -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0px"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:id="@+id/textView14ssaaa3s"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/txtDeleteAccount"
+                    android:textColor="#ffce1f"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/imageViewDeleteAccount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    app:srcCompat="@drawable/chevron_right" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#517c79" /> <!-- Line color -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0px"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:id="@+id/textView14ssssaaa3s"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/txtSignOut"
+                    android:textColor="#ffce1f"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/imageViewChevLogout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:clickable="true"
+                    android:textSize="12sp"
+                    app:srcCompat="@drawable/chevron_right" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

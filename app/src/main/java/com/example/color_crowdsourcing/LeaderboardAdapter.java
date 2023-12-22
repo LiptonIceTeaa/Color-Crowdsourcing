@@ -1,7 +1,7 @@
 package com.example.color_crowdsourcing;
 
 import android.content.Context;
-import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,15 +11,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
-import com.example.color_crowdsourcing.user;
-
 import org.checkerframework.checker.nullness.qual.NonNull;
-
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.annotation.Nullable;
 
@@ -61,6 +55,7 @@ public class LeaderboardAdapter extends ArrayAdapter<user> {
         LinearLayout llRow = currentItemView.findViewById(R.id.linearLayoutRow);
         LinearLayout mainRow = currentItemView.findViewById(R.id.mainRow);
 
+
         // Load the heartbeat animation from the XML file
         Animation heartbeatAnimation = AnimationUtils.loadAnimation(context, R.anim.heartbeat);
 
@@ -73,7 +68,8 @@ public class LeaderboardAdapter extends ArrayAdapter<user> {
         // Since User class has appropriate getter methods like getFlag(), getName(), getPoints()
         // Set data to the views
         nameTextView.setText(userObj.getName()+"\u00A0");
-        pointsTextView.setText("Points: "+String.valueOf(userObj.getPoints())+"\u00A0");
+        pointsTextView.setText("\u00A0"+context.getString(R.string.txtPoints) + " " + String.valueOf(userObj.getPoints()) + "\u00A0");
+
 
         // If row is first place
         if(number == 1){
@@ -81,15 +77,27 @@ public class LeaderboardAdapter extends ArrayAdapter<user> {
             trophyImageView.setVisibility(View.VISIBLE);
             trophyImageView.setPadding(100,0,100,0);
             flagImageView.getLayoutParams().height = 130;
-           flagImageView.getLayoutParams().width = 130;
+            flagImageView.getLayoutParams().width = 130;
             flagImageView.requestLayout();
             nameTextView.setTextSize(18);
             pointsTextView.setTextSize(13);
             mainRow.setBackgroundResource(R.drawable.rounded_gradient_background_linear_layout);
 
         }else {
+            trophyImageView.setVisibility(View.GONE);
+            numberTextView.setVisibility(View.VISIBLE);
+            trophyImageView.setVisibility(View.GONE);
+            flagImageView.getLayoutParams().height = 100;
+            flagImageView.getLayoutParams().width = 100;
+            nameTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+            pointsTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
             numberTextView.setText(String.valueOf(number) + ".");
+            mainRow.setBackgroundResource(R.drawable.list_view_item);
+            trophyImageView.setVisibility(View.GONE);
+            flagImageView.setLayoutDirection(View.LAYOUT_DIRECTION_INHERIT);
         }
+
+
 
 
         // To set the flag we need to do more stuff a bit

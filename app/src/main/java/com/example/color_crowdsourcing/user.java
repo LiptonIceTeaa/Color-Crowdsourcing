@@ -7,11 +7,13 @@ public class user {
     private String name;
     private String country;
     private String points;
+    private String email;
 
-    public user(String name, String country, String points) {
+    public user(String name, String country, String points, String email) {
         this.name = name;
         this.country = country;
         this.points = points;
+        this.email = email;
     }
 
     public String getName() {
@@ -52,8 +54,11 @@ public class user {
         return countryCode;
     }
 
+    public String getEmail() {
+        return email;
+    }
 
-
-
-
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

@@ -3,23 +3,31 @@ package com.example.color_crowdsourcing;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.preference.PreferenceManager;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.LocaleList;
+import android.os.Vibrator;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +51,11 @@ public class displayTasks extends AppCompatActivity {
     private TextView totalPointsView;
     private boolean doubleBackToExitPressedOnce = false; // Used for double back press to exit
     private Button bttnComplete;
+    private MediaPlayer mp;
+    private Vibrator vibe;
+    private LinearLayout viewProfileLayout;
+    private LinearLayout viewLeaderboardLayout;
+    private LinearLayout viewMyCircleLayout;
 
 
 
@@ -60,17 +73,118 @@ public class displayTasks extends AppCompatActivity {
         getWindow().setExitTransition(null);
         getWindow().setEnterTransition(null);
         setDefaultLanguage();
+        setLayoutHeight();
 
         totalPointsView = (TextView) findViewById(R.id.totalPointsView);
 
        // logoutButton = (Button) findViewById(R.id.logoutButton);
         settingButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         bttnComplete = (Button)findViewById(R.id.continueBttn);
+        mp = MediaPlayer.create(this, R.raw.game_start);
+        vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        viewProfileLayout = (LinearLayout)findViewById(R.id.viewProfileLayout);
+        viewMyCircleLayout = (LinearLayout)findViewById(R.id.viewMyCircleLayout);
+        viewLeaderboardLayout = (LinearLayout)findViewById(R.id.viewLeaderboardLayout);
+
+
+        viewLeaderboardLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(displayTasks.this,leaderboard.class);
+                startActivity(intent);
+            }
+        });
+
+
+
+        viewProfileLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(displayTasks.this,userDetails.class);
+                startActivity(intent);
+            }
+        });
+
+
+
+        /** Working on styling the create button to add dinking effect when presses **/
+
+
+
+        viewLeaderboardLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        // Button pressed, apply scale animation
+                        v.animate().scaleX(0.95f).scaleY(0.95f).setDuration(100).start();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
+                        // Button released or touch canceled, revert the scale animation
+                        v.animate().scaleX(1f).scaleY(1f).setDuration(100).start();
+                        break;
+                }
+                return false;
+            }
+        });
+
+
+        viewMyCircleLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        // Button pressed, apply scale animation
+                        v.animate().scaleX(0.95f).scaleY(0.95f).setDuration(100).start();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
+                        // Button released or touch canceled, revert the scale animation
+                        v.animate().scaleX(1f).scaleY(1f).setDuration(100).start();
+                        break;
+                }
+                return false;
+            }
+        });
+
+
+        viewProfileLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        // Button pressed, apply scale animation
+                        v.animate().scaleX(0.95f).scaleY(0.95f).setDuration(100).start();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
+                        // Button released or touch canceled, revert the scale animation
+                        v.animate().scaleX(1f).scaleY(1f).setDuration(100).start();
+                        break;
+                }
+                return false;
+            }
+        });
+
+        /** Finished working on styling the create button to add sinking effect when pressed **/
+
+
+        viewMyCircleLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(displayTasks.this, friendsList.class);
+                startActivity(intent);
+            }
+        });
+
 
         /** Wotking on listener for continue button **/
         bttnComplete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mp.start();
+                vibe.vibrate(1000);
                 launchTasks();
             }
         });
@@ -98,14 +212,13 @@ public class displayTasks extends AppCompatActivity {
             Toast.makeText(displayTasks.this, "Failed to retrieve data.\nPlease restart the applications", Toast.LENGTH_LONG).show();
 
 
-
         /** Working on double back press to exit app **/
         // Register a callback to handle the back button press
         OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
                 if (doubleBackToExitPressedOnce) {
-                    finish();
+                    moveTaskToBack(true);
                 } else {
                     doubleBackToExitPressedOnce = true;
                     Toast.makeText(displayTasks.this, "Press back again to exit", Toast.LENGTH_SHORT).show();
@@ -162,7 +275,7 @@ public class displayTasks extends AppCompatActivity {
         dialog.getWindow().setGravity(Gravity.CENTER); // Centered on screen
 
         // Initialize menu items
-        Button buttonOption1 = dialog.findViewById(R.id.leaderboardButton);
+        //Button buttonOption1 = dialog.findViewById(R.id.leaderboardButton);
         Button buttonOption2 = dialog.findViewById(R.id.contactButton);
         Button buttonOption3 = dialog.findViewById(R.id.logoutButton);
         buttonOption3.setVisibility(View.VISIBLE);
@@ -177,16 +290,12 @@ public class displayTasks extends AppCompatActivity {
         langSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (userSelectedLanguage) {
-                    String selectedLanguage = parent.getItemAtPosition(position).toString();
-                    //Toast.makeText(MainActivity.this, selectedLanguage + " selected", Toast.LENGTH_SHORT).show();
-                    if(selectedLanguage.equals("English"))
-                        setLocale("en");
-                    else
-                        setLocale("ar");
+                String selectedLanguage = parent.getItemAtPosition(position).toString();
+                if(selectedLanguage.equals("English") && !currentLocale.equals("en"))
+                    setLocale("en");
 
-                }
-                userSelectedLanguage = true; // Set the flag to true after the first selection
+                else if(selectedLanguage.equals("Arabic") && !currentLocale.equals("ar"))
+                    setLocale("ar");
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -194,14 +303,14 @@ public class displayTasks extends AppCompatActivity {
             }
         });
 
-        // Set click listeners for menu items
-        buttonOption1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle option 1 click
-                dialog.dismiss(); // Dismiss the menu after click
-            }
-        });
+//        // Set click listeners for menu items
+//        buttonOption1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Handle option 1 click
+//                dialog.dismiss(); // Dismiss the menu after click
+//            }
+//        });
 
         buttonOption2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -266,7 +375,7 @@ public class displayTasks extends AppCompatActivity {
         editor.apply();
 
         // Redirect user to sign in page
-        Intent myIntent = new Intent(displayTasks.this, signIn.class);
+        Intent myIntent = new Intent(displayTasks.this, introductoryPage.class);
         startActivity(myIntent);
 
     }
@@ -308,7 +417,7 @@ public class displayTasks extends AppCompatActivity {
 
     // Restarts the app
     public void restartApp() {
-        Intent intent = new Intent(this, displayTasks.class);
+        Intent intent = new Intent(this, SplashScreen.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         finish();
         startActivity(intent);
@@ -317,5 +426,72 @@ public class displayTasks extends AppCompatActivity {
     public void launchTasks(){
         Intent intentt = new Intent(this, carryOutTasks.class);
         startActivity(intentt);
+    }
+
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        // put your code here...
+        totalPointsView = (TextView) findViewById(R.id.totalPointsView);
+
+        /** Setting the text inside the total points view for a certain user **/
+        // Firstly get current email
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String currentEmail = preferences.getString("userEmail","none");
+        if (!currentEmail.equals("none")){
+            setUserPoints(currentEmail);
+        }
+        else
+            Toast.makeText(displayTasks.this, "Failed to retrieve data.\nPlease restart the applications", Toast.LENGTH_LONG).show();
+
+
+    }
+
+
+    public void setLayoutHeight(){
+
+
+
+        ConstraintLayout constraintLayout = findViewById(R.id.rootLayout); // Replace with your actual ID
+
+// Get the display metrics
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+// Calculate the percentage of screen width and height you want (e.g., 80% and 40%)
+        float percentageOfScreenWidth = 0.9f;
+        float percentageOfScreenHeight = 0.35f;
+
+// Calculate the desired width and height in pixels
+        int desiredWidthInPixels = (int) (displayMetrics.widthPixels * percentageOfScreenWidth);
+        int desiredHeightInPixels = (int) (displayMetrics.heightPixels * percentageOfScreenHeight);
+
+// Find the views
+        LinearLayout inputForm = findViewById(R.id.linearLayout5); // Replace with your actual ID
+        View lineSepView = findViewById(R.id.lineSepView);
+        LinearLayout circles = findViewById(R.id.linearLayout6); // Replace with your actual ID
+
+
+
+
+    // Set layout parameters for inputForm
+        ConstraintLayout.LayoutParams paramsInputForm = (ConstraintLayout.LayoutParams) inputForm.getLayoutParams();
+        paramsInputForm.width = desiredWidthInPixels;
+        paramsInputForm.height = desiredHeightInPixels;
+
+        // Set layout parameters for lineSepView
+        ConstraintLayout.LayoutParams paramsInputForm2 = (ConstraintLayout.LayoutParams) lineSepView.getLayoutParams();
+        paramsInputForm2.width = desiredWidthInPixels;
+
+        // Set layout parameters for lineSepView
+        ConstraintLayout.LayoutParams paramsInputForm3 = (ConstraintLayout.LayoutParams) circles.getLayoutParams();
+        paramsInputForm3.width = desiredWidthInPixels;
+
+
+        inputForm.setLayoutParams(paramsInputForm);
+        lineSepView.setLayoutParams(paramsInputForm2);
+        circles.setLayoutParams(paramsInputForm3);
+
     }
 }

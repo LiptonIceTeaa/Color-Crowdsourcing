@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/consLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_upper_ar"
+    android:layoutDirection="rtl"
+    tools:context=".friendsList">
+
+    <ImageView
+        android:id="@+id/logoView3"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:scaleType="fitXY"
+        android:transitionName="shared_logo_transition"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.21"
+        app:srcCompat="@drawable/ccslogo" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButtonBack"
+        android:layout_width="52dp"
+        android:layout_height="55dp"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        app:backgroundTint="#5D8380"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.019"
+        app:srcCompat="@drawable/arrow_back_fill0_wght400_grad0_opsz24" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout8"
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+        android:background="@drawable/friends_list_lower"
+        android:orientation="vertical"
+        android:paddingTop="20dp"
+        android:weightSum="10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingRight="25dp"
+            android:weightSum="4">
+
+
+            <TextView
+                android:id="@+id/textViewFriendsList"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:fontFamily="@font/nunito"
+                android:text="@string/txtFriendRequests"
+                android:textColor="#517c79"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/friendsRequests"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="9"
+            android:dividerHeight="0dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:layoutDirection="rtl"
+            android:paddingRight="10dp"
+            android:scrollbars="vertical" />
+
+
+
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

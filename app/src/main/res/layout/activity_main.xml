@@ -5,9 +5,26 @@
     android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    tools:context=".MainActivity"
-    android:layoutDirection="ltr">
+    android:background="@drawable/background_upper"
+    android:layoutDirection="ltr"
+    android:scaleY="1.01"
+    tools:context=".MainActivity">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButtonBack"
+        android:layout_width="52dp"
+        android:layout_height="55dp"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        app:backgroundTint="#5D8380"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/floatingActionButton"
+        app:layout_constraintVertical_bias="0.014"
+        app:srcCompat="@drawable/arrow_back_fill0_wght400_grad0_opsz24" />
+
 
     <ImageView
         android:id="@+id/logoView"
@@ -16,65 +33,43 @@
         android:cropToPadding="true"
         android:scaleType="fitXY"
         android:transitionName="shared_logo_transition"
-        app:layout_constraintBottom_toTopOf="@+id/formTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.972"
+        app:layout_constraintVertical_bias="0.229"
         app:srcCompat="@drawable/ccslogo"
         app:tint="#ffce1f" />
-
-    <Button
-        android:id="@+id/createButton"
-        android:layout_width="100dp"
-        android:layout_height="35dp"
-        android:backgroundTint="#BDBDBD"
-        android:elevation="5dp"
-        android:enabled="false"
-        android:paddingLeft="10dp"
-        android:paddingTop="1dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="1dp"
-        android:text="@string/bttnCreateAccount"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.675" />
-
-    <TextView
-        android:id="@+id/txtLoginInInstead"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="200dp"
-        android:text="@string/bttnSignInInstead"
-        android:textColor="#ffce1f"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createButton"
-        app:layout_constraintVertical_bias="0.0" />
 
     <LinearLayout
         android:id="@+id/inputForm"
         android:layout_width="350dp"
-        android:layout_height="274dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/edittextstyle"
         android:orientation="vertical"
         android:paddingTop="14dp"
         android:transitionName="inputForm_transition"
-        android:weightSum="10"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:weightSum="11"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.41">
+        app:layout_constraintTop_toBottomOf="@+id/logoView">
+
+        <TextView
+            android:id="@+id/formTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="0px"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="@string/txtCreateAccount"
+            android:textColor="#ffce1f"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:transitionName="shared_title_transition"
+            tools:layout_editor_absoluteX="153dp"
+            tools:layout_editor_absoluteY="320dp" />
 
 
         <LinearLayout
@@ -161,6 +156,7 @@
                     android:id="@+id/nameTextField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                     android:hint="@string/inputNameHint"
                     android:inputType="text"
                     android:maxLength="20"
@@ -168,8 +164,7 @@
                     android:padding="7dp"
                     android:textColor="@color/black"
                     android:textColorHint="#D3D3D3"
-                    android:textSize="10sp"
-                    />
+                    android:textSize="10sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -194,7 +189,6 @@
                     android:layout_height="wrap_content"
                     android:drawableRight="@drawable/email"
                     android:drawablePadding="5dp"
-                    android:drawableTint="#ffce1f"
                     android:hint="@string/inputEmailHint"
                     android:inputType="text"
                     android:maxLines="1"
@@ -292,6 +286,7 @@
                     style="@style/Widget.AppCompat.Light.AutoCompleteTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                     android:hint="@string/inputCountryHint"
                     android:inputType="text"
                     android:maxLines="1"
@@ -327,7 +322,6 @@
                     android:clickable="true"
                     android:drawableRight="@drawable/calendar"
                     android:drawablePadding="5dp"
-                    android:drawableTint="#ffce1f"
                     android:focusable="false"
                     android:hint="@string/inputDOBHint"
                     android:inputType="date"
@@ -449,6 +443,7 @@
                     android:id="@+id/passwordTextField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-!£$%*@#1234567890"
                     android:hint="@string/txtPassword"
                     android:inputType="textPassword"
                     android:maxLines="1"
@@ -527,22 +522,6 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/formTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/txtCreateAccount"
-        android:textColor="#ffce1f"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:transitionName="shared_title_transition"
-        app:layout_constraintBottom_toTopOf="@+id/inputForm"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="54dp"
@@ -570,6 +549,53 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.696" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputForm">
+
+        <Button
+            android:id="@+id/createButton"
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:backgroundTint="#BDBDBD"
+            android:elevation="5dp"
+            android:enabled="false"
+            android:paddingLeft="10dp"
+            android:paddingTop="1dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="1dp"
+            android:text="@string/txtContinue"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/txtLoginInInstead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:text="@string/bttnSignInInstead"
+            android:textColor="#ffce1f" />
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar3"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.84" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

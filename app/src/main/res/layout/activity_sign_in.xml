@@ -2,9 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/consLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@drawable/slide1"
     tools:context=".signIn"
     android:layoutDirection="ltr">
 
@@ -32,7 +33,7 @@
         android:textColor="#ffce1f"
         android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintBottom_toTopOf="@+id/inputForm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,12 +69,12 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.851"
+        app:layout_constraintVertical_bias="0.734"
         app:srcCompat="@drawable/ccslogo"
         app:tint="#ffce1f" />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/inputForm"
         android:layout_width="345dp"
         android:layout_height="141dp"
         android:background="@drawable/edittextstyle"

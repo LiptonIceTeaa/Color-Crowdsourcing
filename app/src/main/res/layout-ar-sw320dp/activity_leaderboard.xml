@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/consLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_upper_ar"
+    android:scaleY="1.01"
+    tools:context=".leaderboard">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:baselineAlignBottom="false"
+        android:clickable="true"
+        app:backgroundTint="#5D8380"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.019"
+        app:srcCompat="@drawable/settings" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButtonBack"
+        android:layout_width="52dp"
+        android:layout_height="55dp"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        app:backgroundTint="#5D8380"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/floatingActionButton"
+        app:layout_constraintVertical_bias="0.023"
+        app:srcCompat="@drawable/arrow_back_fill0_wght400_grad0_opsz24" />
+
+    <ImageView
+        android:id="@+id/logoView"
+        android:layout_width="227dp"
+        android:layout_height="56dp"
+        android:scaleType="fitXY"
+        android:transitionName="shared_logo_transition"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.157"
+        app:srcCompat="@drawable/ccslogo" />
+
+
+    <ProgressBar
+        android:id="@+id/progressBarListView"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="128dp"
+        android:layout_height="78dp"
+        android:indeterminateTint="#ffce1f"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.700" />
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.25">
+
+        <TextView
+            android:id="@+id/textViewTotalPoints"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="@drawable/total_points_design"
+            android:drawableStart="@drawable/diamond_fill0_wght400_grad0_opsz24"
+            android:drawablePadding="15dp"
+            android:elevation="15dp"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/stalinist_one"
+            android:paddingTop="10dp"
+            android:text="@string/txtTotalGamePoints"
+            android:textColor="#ffce1f"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout8"
+        android:layout_width="wrap_content"
+        android:layout_height="500dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:weightSum="10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout9"
+        app:layout_constraintVertical_bias="0.671">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:orientation="horizontal"
+            android:layout_weight="1.1"
+            android:weightSum="10">
+
+            <TextView
+                android:id="@+id/textViewLeaderboard"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginBottom="16dp"
+                android:paddingRight="55dp"
+                android:layout_weight="9"
+                android:fontFamily="@font/stalinist_one"
+                android:shadowColor="@color/white"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="4"
+                android:text="@string/txtLeaderboard"
+                android:textColor="#ffce1f"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/refreshListButton"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:layout_gravity="center"
+                android:elevation="15dp"
+                app:srcCompat="@drawable/refresh_fill0_wght400_grad0_opsz24" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/listVieww"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="9"
+            android:background="@drawable/leaderboard_bckg"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="10dp"
+            android:elevation="15dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="10dp"
+            android:paddingRight="15dp"
+            android:scrollbars="vertical"
+            android:visibility="visible" />
+
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

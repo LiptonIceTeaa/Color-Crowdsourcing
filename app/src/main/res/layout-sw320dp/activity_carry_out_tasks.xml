@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/consLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#517c79"
@@ -75,7 +76,7 @@
         app:layout_constraintVertical_bias="0.134">
 
         <View
-            android:id="@+id/viewColor"
+            android:id="@+id/viewColorBox"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:outlineAmbientShadowColor="@color/white"
@@ -92,7 +93,7 @@
 
     <View
         android:id="@+id/dividerLine"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#CCCCCC"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
@@ -152,7 +153,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView8">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/usernameTextField"
+                android:id="@+id/colorNameTextField"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:backgroundTint="@android:color/transparent"
@@ -180,16 +181,18 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/textViewSkipColor"
                 android:layout_width="0px"
                 android:layout_weight="1.8"
+                android:clickable="true"
+                android:focusable="true"
                 android:layout_height="wrap_content"
                 android:text="@string/txtSkip"
                 android:textColor="#ffce1f"
                 android:textSize="12sp" />
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/buttonNextColor"
                 android:layout_width="0px"
                 android:textSize="10sp"
                 android:backgroundTint="#ffce1f"
@@ -199,7 +202,23 @@
                 android:layout_weight="2"
                 android:text="@string/txtSubmitColor" />
         </LinearLayout>
+
+
+
     </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/animationContainer"
+        android:layout_width="43dp"
+        android:layout_height="46dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.008"></FrameLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

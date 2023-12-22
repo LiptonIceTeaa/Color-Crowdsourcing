@@ -1,14 +1,10 @@
 package com.example.color_crowdsourcing;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.ViewCompat;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.preference.PreferenceManager;
-
-import android.app.ActivityOptions;
 import android.app.Dialog;
-import android.app.SharedElementCallback;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,38 +14,34 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.LocaleList;
-import android.transition.Fade;
-import android.util.Pair;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.List;
 import java.util.Locale;
 
 
 public class signIn extends AppCompatActivity {
 
-    private boolean doubleBackToExitPressedOnce = false; // Used for double back press to exit
+  //  private boolean doubleBackToExitPressedOnce = false; // Used for double back press to exit
     private Button btnSignIn;
     private FloatingActionButton floatingActionButton;
     private EditText emailField;
@@ -63,6 +55,7 @@ public class signIn extends AppCompatActivity {
     private boolean userSelectedLanguage = false;
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
+    private FloatingActionButton backBttn;
 
 
 
@@ -75,18 +68,28 @@ public class signIn extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        getWindow().setEnterTransition(null);
-        getWindow().setExitTransition(null);
 
         setDefaultLanguage();
 
         setContentView(R.layout.activity_sign_in);
+
+        setLayoutHeight();
 
         emailField = (EditText) findViewById(R.id.emailTextField);
         passwordField = (EditText) findViewById(R.id.passwordTextField);
         mAuth = FirebaseAuth.getInstance();
         wrongCredentialsTxtView = (TextView) findViewById(R.id.txtWrongCredentials);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        backBttn  = (FloatingActionButton) findViewById(R.id.floatingActionButtonBack);
+
+        backBttn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+                //overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom);
+
+            }
+        });
 
 
         /** setting style for txtCreateAccountInstead text view **/
@@ -147,52 +150,15 @@ public class signIn extends AppCompatActivity {
 
                 Intent intent = new Intent(signIn.this, MainActivity.class);
 
-                // Get the shared element (the View) that will be transitioned between activities
-                View sharedElement = findViewById(R.id.logoView);
-                View inputForm = findViewById(R.id.inputForm);
-                View formTitle = findViewById(R.id.formTitle);
-
-                // Create the transition animation options
-//                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(signIn.this,
-//                       Pair.create(sharedElement,"shared_logo_transition"),
-//                     //   Pair.create(inputForm,"inputForm_transition"),
-//                        Pair.create(formTitle,"shared_title_transition"));
-
-                // Start the new activity with the transition animation
-               // startActivity(intent, options.toBundle());
-
                 startActivity(intent);
-               // overridePendingTransition( R.anim.slide_in_bottom, R.anim.slide_out_bottom);
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                finish();
 
-                //finish();
-                //finish();
-
-                //startActivity(new Intent(signIn.this, MainActivity.class));
             }
         });
         /** Finished clicking on create account instead **/
 
 
-        /** Working on double back press to exit app **/
-        // Register a callback to handle the back button press
-        OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                if (doubleBackToExitPressedOnce) {
-                    finish();
-                } else {
-                    doubleBackToExitPressedOnce = true;
-                    Toast.makeText(signIn.this, "Press back again to exit", Toast.LENGTH_SHORT).show();
-
-                    new Handler().postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
-                }
-            }
-        };
-        // Add the callback to the onBackPressedDispatcher
-        getOnBackPressedDispatcher().addCallback(this, onBackPressedCallback);
-
-
-    /** Finished Working on double back press to exit app **/
 
     /** Working on what happens if floating action button is pressed **/
         floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
@@ -210,7 +176,7 @@ public class signIn extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String email, password;
-                email = emailField.getText().toString().trim();
+                email = emailField.getText().toString().trim().toLowerCase();
                 password = passwordField.getText().toString().trim();
 
                 if(!email.isEmpty() && !password.isEmpty()){
@@ -245,7 +211,7 @@ public class signIn extends AppCompatActivity {
                                 }
                             });
                 }else{
-                    Toast.makeText(signIn.this, "Please make sure all fields are completed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(signIn.this, R.string.toastFillSignInFields, Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -306,7 +272,7 @@ public void setDefaultLanguage(){
         dialog.getWindow().setGravity(Gravity.CENTER); // Centered on screen
 
         // Initialize menu items
-        Button buttonOption1 = dialog.findViewById(R.id.leaderboardButton);
+        //Button buttonOption1 = dialog.findViewById(R.id.leaderboardButton);
         Button buttonOption2 = dialog.findViewById(R.id.contactButton);
         Button buttonOption3 = dialog.findViewById(R.id.logoutButton);
         Spinner langSpinner = dialog.findViewById(R.id.languageSpinner);
@@ -320,16 +286,21 @@ public void setDefaultLanguage(){
         langSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-               if (userSelectedLanguage) {
+
+               // if (userSelectedLanguage) {
                     String selectedLanguage = parent.getItemAtPosition(position).toString();
-                    //Toast.makeText(MainActivity.this, selectedLanguage + " selected", Toast.LENGTH_SHORT).show();
-                    if(selectedLanguage.equals("English"))
+                    if(selectedLanguage.equals("English") && !currentLocale.equals("en"))
                         setLocale("en");
-                    else
+
+                    else if(selectedLanguage.equals("Arabic") && !currentLocale.equals("ar"))
                         setLocale("ar");
 
-               }
-               userSelectedLanguage = true; // Set the flag to true after the first selection
+//                    else
+//                        Toast.makeText(signIn.this, "Fields are full, now signing you in", Toast.LENGTH_SHORT).show();
+
+                // dialog.dismiss();
+               // }
+              //  userSelectedLanguage = true; // Set the flag to true after the first selection
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -338,19 +309,19 @@ public void setDefaultLanguage(){
         });
 
         // Set click listeners for menu items
-        buttonOption1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle option 1 click
-               //
-                //dialog.dismiss(); // Dismiss the menu after click
-
-                // Now we redirect to another activity
-                Intent myIntent = new Intent(signIn.this, leaderboard.class);
-                startActivity(myIntent);
-
-            }
-        });
+//        buttonOption1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Handle option 1 click
+//               //
+//                //dialog.dismiss(); // Dismiss the menu after click
+//
+//                // Now we redirect to another activity
+//                Intent myIntent = new Intent(signIn.this, leaderboard.class);
+//                startActivity(myIntent);
+//
+//            }
+//        });
 
         buttonOption2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -418,10 +389,54 @@ public void setDefaultLanguage(){
 
     // Restarts the app
     public void restartApp() {
-        Intent intent = new Intent(this, signIn.class);
+        Intent intent = new Intent(this, SplashScreen.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         finish();
         startActivity(intent);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        //overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom);
+        overridePendingTransition(R.anim.nothing_slide, R.anim.slide_out);
+    }
+
+
+    public void setLayoutHeight(){
+        ConstraintLayout constraintLayout = findViewById(R.id.consLayout); // Replace with your actual ID
+
+// Get the display metrics
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+// Calculate the percentage of screen height you want (e.g., 50%)
+        float percentageOfScreenHeight = 0.15f;
+        float percentageOfScreenWidth = 0.85f;
+
+// Calculate the desired height in pixels
+        int desiredHeightInPixels = (int) (displayMetrics.heightPixels * percentageOfScreenHeight);
+        int desiredWidthInPixels = (int) (displayMetrics.widthPixels * percentageOfScreenWidth);
+
+
+// Find the LinearLayout
+        LinearLayout linearLayout = findViewById(R.id.inputForm); // Replace with your actual ID
+
+
+
+// Set layout parameters for otherInfo
+        ConstraintLayout.LayoutParams paramsInputForm= (ConstraintLayout.LayoutParams) linearLayout.getLayoutParams();
+        paramsInputForm.width = desiredWidthInPixels;
+        paramsInputForm.height = desiredHeightInPixels;
+
+
+
+// Apply the layout parameters to the LinearLayout
+        linearLayout.setLayoutParams(paramsInputForm);
+
+
+
     }
 
 }
