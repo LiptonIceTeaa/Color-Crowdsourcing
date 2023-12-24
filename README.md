@@ -2,7 +2,7 @@
 
 ## Problem Statement
 
-The Color Crowdsourcing App aims to design applications for crowdsourcing color labels in the Arabic Language. The primary goal is to contribute towards building an Arabic Corpus for the Arabic Language, enabling the creation of labels for data visualization and applications utilizing text-to-speech in Arabic.
+The Color Crowdsourcing App aims to design applications for crowdsourcing color labels in the Arabic Language. The primary goal is to contribute towards building an Arabic Corpus for the Arabic Language, enabling the creation of labels for data visualization in Arabic.
 
 ## Benefits
 
