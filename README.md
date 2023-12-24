@@ -18,7 +18,9 @@ The Color Crowdsourcing App aims to design applications for crowdsourcing color 
 ### Application Platform
 - **Platform:** Android
 - **Development Environment:** Android Studio
-- **Target APK:** Compatible with various screen sizes, optimized for portrait mode.
+- **Target APK:** minSdk: 24, targetSdk: 33
+- **Screen size support:**Compatible with various screen sizes, optimized for portrait mode.
+- **Current vesion:**1.0
 
 ### Features
 - **Multilingual Support:** English and Arabic languages are supported for a wider user audience.
